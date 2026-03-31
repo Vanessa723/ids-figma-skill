@@ -53,10 +53,22 @@ echo "✓ Design tokens refreshed → ids-tokens-latest.json"
 
 加载预索引的组件 key 文件，避免每次生成时重复调用 Figma API 查找组件。
 
-Read `./components-index.json` at the start of every session. When you need a component:
-1. **Search the index first** — look up the component name to get its key directly
-2. **Use the key** to insert the component via MCP without additional API lookups
-3. **If not found in index** — fall back to searching via Figma API, then add a note that the index may need refreshing
+Read `./components-index.json` at the start of every session. The index is structured by **component set name**, with variants listed underneath:
+
+```json
+"Button / Basic": {
+  "variants": {
+    "Type=Primary, Size=Default, State=Default": "abc123...",
+    "Type=Default, Size=Small, State=Hover": "def456..."
+  }
+}
+```
+
+When you need a component:
+1. **Search by component set name** — e.g. search "Button" to find all Button-related sets
+2. **Pick the right variant** — match the required Type/Size/State combination
+3. **Use the key** to insert via MCP — no additional API lookup needed
+4. **If not found** — fall back to Figma API search, and note that the index may need refreshing via `./fetch-components.sh`
 
 ```bash
 # Refresh component index if it's outdated (run manually as needed)
