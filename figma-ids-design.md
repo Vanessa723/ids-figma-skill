@@ -58,22 +58,33 @@ To refresh the component index, run:
 ./fetch-components.sh
 ```
 
-### 1.2 Confirm Business Context (Ask the User) | 确认业务归属（询问用户）
-生成前必须先问用户：
+### 1.2 Confirm Business Context & Generation Mode | 确认业务归属与生成模式
+生成前必须先问用户，并根据业务类型自动选择生成模式：
 
-Before generating anything, ask:
+Before generating anything, ask the user and automatically select the generation mode based on the product:
 
-> **"Which product is this interface for: Space, DataSuite, Ask, Smart, or other?"**
+> **"Which product is this interface for: Space, DataSuite, Ask, Smart, or other (new product)?"**
 >
-> **"当前界面是哪个产品的：Space、DataSuite、Ask、Smart，还是其他？"**
+> **"当前界面是哪个产品的：Space、DataSuite、Ask、Smart，还是其他（新产品）？"**
 
-然后加载对应的业务配置文件：`./business-configs/[product-name].md`
+**Generation Mode Selection | 生成模式选择：**
 
-Then load the corresponding business configuration from `./business-configs/[product-name].md`.
+- **Established products (Space, DataSuite, Ask, Smart)** → **Standard Mode | 标准模式**
+  - Strictly follow IDS component library
+  - Must use designated business components (Topbar, Sidebar, PageHeader)
+  - Ensures consistency and implementability
+  - Load business config: `./business-configs/[product-name].md`
 
-如果配置文件不存在，则使用通用 IDS 模式（仅第二章规则），并告知用户可以稍后创建业务配置。
+- **New products or "other"** → **Creative Mode | 创意模式**
+  - Can freely combine and adapt components
+  - Can hand-draw new components (must annotate as "Custom — requires development")
+  - Still must follow token standards (colors, typography, spacing)
+  - Proceed with General IDS Mode (Chapter 2 only)
 
-If the product config file doesn't exist yet, proceed with General IDS Mode (Chapter 2 only) and notify the user that they can create a business config later.
+**告知用户 | Inform the user:**
+After the user answers, explicitly state which mode will be used:
+- Standard Mode: "I'll generate using Standard Mode with [Product] business components."
+- Creative Mode: "I'll generate using Creative Mode. Custom components will be annotated for future development."
 
 ---
 
@@ -90,15 +101,21 @@ If the product config file doesn't exist yet, proceed with General IDS Mode (Cha
 | Base grid | 8px |
 | Content margin | 24px left/right |
 
-### 2.2 Component Source — Zero Exceptions | 组件来源 — 零例外
-**所有基础 UI 组件必须来自 IDS UI Kit**，禁止手绘基础组件。
+### 2.2 Component Source | 组件来源
 
-- **All base UI components must come from the IDS UI Kit:**
+**Standard Mode (Established Products) | 标准模式（成熟业务）：**
+- **All base UI components must come from the IDS UI Kit** — zero exceptions
   `https://www.figma.com/design/zANozorPV3t5sueU20e0Nx`
 - Insert components via: `Assets → Libraries → IDS Component UI Kit`
-- **Components with underscore prefix (_) cannot be directly used** — these are internal/base components not intended for direct consumption
+- **Components with underscore prefix (_) cannot be directly used** — these are internal/base components
 - Never hand-draw Button, Input, Select, Table, Modal, Tag, Badge, Checkbox, Radio, Switch, Tabs, Pagination, etc.
-- If a component does not exist in IDS: compose from existing IDS primitives first. Only hand-draw as a last resort, and annotate it as "Custom — not in IDS" in the layer name.
+- If a component does not exist in IDS: compose from existing IDS primitives first. Only hand-draw as a last resort, and annotate it as "Custom — not in IDS"
+
+**Creative Mode (New Products) | 创意模式（新业务）：**
+- **Prefer IDS components** but can freely adapt and combine them
+- Can hand-draw new components when needed for innovation
+- All custom components must be annotated as "Custom — requires development" in layer name
+- Document custom components in the Annotation frame with design rationale
 
 ### 2.3 Design Token Coverage — No Hardcoded Values | Token 全覆盖 — 禁止硬编码
 每个视觉属性都必须引用 token，禁止出现裸值。因为使用了 token，切换到暗色模式只需一键切换变量模式。
