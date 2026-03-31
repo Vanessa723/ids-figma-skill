@@ -1,0 +1,6 @@
+# Exclude other skills
+frontend-slides/
+
+# Exclude temp files
+*.tmp
+.DS_Store
