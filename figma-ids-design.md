@@ -88,18 +88,22 @@ After the user answers, explicitly state which mode will be used:
 
 ### 1.3 Confirm File Location | 确认文件创建位置
 
-所有新建 Figma 文件必须创建在指定的团队空间下，禁止创建在个人草稿（Drafts）中。
+所有新建 Figma 文件必须创建在 **SHOPEE SINGAPORE PRIVATE LIMITED** 组织下（个人草稿或团队项目均可，但必须归属于该组织）。
 
-All new Figma files **must** be created under the designated team. Never create files in personal Drafts.
+All new Figma files **must** be created under the **SHOPEE SINGAPORE PRIVATE LIMITED** organization. Personal Drafts or team projects are both acceptable, as long as they belong to this organization.
 
 | Setting | Value |
 |---------|-------|
 | Organization | **SHOPEE SINGAPORE PRIVATE LIMITED** |
-| Location | Team project corresponding to the product (e.g., Space, DataSuite) |
+| Allowed locations | Drafts (under org) or team project corresponding to the product |
 
-> If you cannot locate the correct team project, pause and ask the user before creating the file.
+**严格禁止 | Strictly Prohibited:**
+- ❌ Creating files outside the SHOPEE SINGAPORE PRIVATE LIMITED organization
+- ❌ Adding frames or content directly inside the IDS design system file (`zANozorPV3t5sueU20e0Nx`) — this file is a read-only component library, never a working canvas
+
+> If you cannot locate the correct organization, pause and ask the user before creating the file.
 >
-> 如果找不到对应的团队项目，暂停并询问用户，不得擅自创建在其他位置。
+> 如果找不到对应的组织，暂停并询问用户，不得擅自创建在其他位置。
 
 ---
 
@@ -290,7 +294,8 @@ Run this before considering the design complete:
 [ ] Layer names are semantic (no "Frame 12", "Rectangle")
 
 ━━ Handoff ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-[ ] File is created under SHOPEE SINGAPORE PRIVATE LIMITED — not in personal Drafts
+[ ] File is created under SHOPEE SINGAPORE PRIVATE LIMITED organization
+[ ] File is NOT created inside the IDS design system file (zANozorPV3t5sueU20e0Nx)
 [ ] Annotation frame present alongside each design frame
 [ ] Token names documented in annotations
 [ ] Any custom components flagged as "Custom — not in IDS"
