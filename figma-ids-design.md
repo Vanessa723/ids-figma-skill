@@ -78,6 +78,7 @@ If the product config file doesn't exist yet, proceed with General IDS Mode (Cha
 - **All base UI components must come from the IDS UI Kit:**
   `https://www.figma.com/design/zANozorPV3t5sueU20e0Nx`
 - Insert components via: `Assets → Libraries → IDS Component UI Kit`
+- **Components with underscore prefix (_) cannot be directly used** — these are internal/base components not intended for direct consumption
 - Never hand-draw Button, Input, Select, Table, Modal, Tag, Badge, Checkbox, Radio, Switch, Tabs, Pagination, etc.
 - If a component does not exist in IDS: compose from existing IDS primitives first. Only hand-draw as a last resort, and annotate it as "Custom — not in IDS" in the layer name.
 
