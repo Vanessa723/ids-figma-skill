@@ -1,4 +1,0 @@
-usage: mv [-f | -i | -n] [-hv] source target
-       mv [-f | -i | -n] [-v] source ... directory
-usage: mv [-f | -i | -n] [-hv] source target
-       mv [-f | -i | -n] [-v] source ... directory
