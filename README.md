@@ -1,40 +1,35 @@
 # IDS Figma Design System Skill
 
-A Claude Code skill for generating Figma UI designs following the IDS (Infra Design System) standards.
+A Claude Code skill for generating Figma UI designs that comply with IDS (Infra Design System) standards.
 
-## Features
+## Files
 
-- **Token-first approach**: Enforces 100% design token coverage (no hardcoded values)
-- **Multi-product support**: Extensible business configuration system
-- **Responsive by default**: 1728px primary + 1440px secondary canvas
-- **Complete state coverage**: Ensures all interactive states are designed
-- **Auto Layout mandatory**: Enables proper responsive behavior
+- `figma-ids-design.md` — Main skill file with universal design rules
+- `components-index.json` — Pre-indexed component keys for faster lookup (834KB)
+- `fetch-components.sh` — Script to refresh component index from Figma
+- `business-configs/` — Product-specific configurations
 
-## Structure
+## Quick Start
 
-```
-figma-ids-design.md          # Main specification (universal rules)
-business-configs/
-  ├── _template.md            # Template for new products
-  ├── space.md                # Space product configuration
-  └── README.md               # Configuration guide
+1. Set your Figma token:
+```bash
+export FIGMA_TOKEN="your_token_here"
 ```
 
-## Usage
+2. Invoke the skill in Claude Code:
+```
+Generate a Figma design for [your description]
+```
 
-In Claude Code, simply say:
+## Component Index
 
-> "Generate a Figma design for [your interface description]"
+The `components-index.json` file contains all IDS component keys, enabling faster component lookup without repeated API calls.
 
-Claude will ask which product (Space, DataSuite, Ask, Smart, etc.) and apply the appropriate rules.
+To refresh:
+```bash
+./fetch-components.sh
+```
 
 ## Adding New Products
 
-1. Copy `business-configs/_template.md` to `business-configs/[product-name].md`
-2. Fill in product background, framework requirements, and Biz Components
-3. Save and use immediately
-
-## Requirements
-
-- Figma Personal Access Token (for fetching latest design tokens)
-- IDS Component UI Kit: `https://www.figma.com/design/zANozorPV3t5sueU20e0Nx`
+Copy `business-configs/_template.md` to create a new product configuration.

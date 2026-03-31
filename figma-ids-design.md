@@ -40,6 +40,17 @@ curl -s -H "X-Figma-Token: $FIGMA_TOKEN" \
 echo "✓ Design tokens refreshed"
 ```
 
+**Component Index (Optional but Recommended):**
+For faster component lookup, load the pre-indexed component keys from `./components-index.json`. This file contains all available IDS components and their Figma keys, eliminating the need to search the component library repeatedly.
+
+**组件索引（可选但推荐）：**
+为了加快组件查找速度，可以加载预索引的组件 keys：`./components-index.json`。该文件包含所有可用的 IDS 组件及其 Figma keys，避免重复搜索组件库。
+
+To refresh the component index, run:
+```bash
+./fetch-components.sh
+```
+
 ### 1.2 Confirm Business Context (Ask the User) | 确认业务归属（询问用户）
 生成前必须先问用户：
 
