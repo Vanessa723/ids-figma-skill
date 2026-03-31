@@ -86,6 +86,21 @@ After the user answers, explicitly state which mode will be used:
 - Standard Mode: "I'll generate using Standard Mode with [Product] business components."
 - Creative Mode: "I'll generate using Creative Mode. Custom components will be annotated for future development."
 
+### 1.3 Confirm File Location | 确认文件创建位置
+
+所有新建 Figma 文件必须创建在指定的团队空间下，禁止创建在个人草稿（Drafts）中。
+
+All new Figma files **must** be created under the designated team. Never create files in personal Drafts.
+
+| Setting | Value |
+|---------|-------|
+| Organization | **SHOPEE SINGAPORE PRIVATE LIMITED** |
+| Location | Team project corresponding to the product (e.g., Space, DataSuite) |
+
+> If you cannot locate the correct team project, pause and ask the user before creating the file.
+>
+> 如果找不到对应的团队项目，暂停并询问用户，不得擅自创建在其他位置。
+
 ---
 
 ## Chapter 2: Universal Rules (Apply to All Interfaces)
@@ -275,6 +290,7 @@ Run this before considering the design complete:
 [ ] Layer names are semantic (no "Frame 12", "Rectangle")
 
 ━━ Handoff ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[ ] File is created under SHOPEE SINGAPORE PRIVATE LIMITED — not in personal Drafts
 [ ] Annotation frame present alongside each design frame
 [ ] Token names documented in annotations
 [ ] Any custom components flagged as "Custom — not in IDS"
