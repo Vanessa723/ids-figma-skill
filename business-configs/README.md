@@ -1,35 +1,36 @@
-# IDS Figma Design Skill
+# Business Configurations
 
-## 文件结构
+This directory contains product-specific design configurations for the IDS Figma skill.
+
+## Directory Structure
 
 ```
-~/.claude/skills/
-├── figma-ids-design.md          # 主规范文件（通用规则）
-└── business-configs/             # 业务配置目录
-    ├── _template.md              # 配置模板
-    ├── space.md                  # Space 业务配置
-    ├── datasuite.md              # DataSuite 配置（待创建）
-    ├── ask.md                    # Ask 配置（待创建）
-    └── smart.md                  # Smart 配置（待创建）
+business-configs/
+├── README.md              # This file
+├── _template.md           # Template for new product configs
+├── space.md               # Space product configuration
+├── datasuite.md           # DataSuite configuration (to be created)
+├── ask.md                 # Ask configuration (to be created)
+└── smart.md               # Smart configuration (to be created)
 ```
 
-## 使用方式
+## How It Works
 
-当你需要生成 Figma 设计时，直接告诉 Claude：
+When generating a Figma design, the AI will:
+1. Ask which product the interface is for (Space / DataSuite / Ask / Smart / Other)
+2. Load the corresponding business configuration file
+3. Apply IDS universal rules + product-specific rules
 
-> "Generate a Figma design for [describe the interface]"
+## Adding a New Product Configuration
 
-Claude 会自动：
-1. 询问你是哪个产品（Space / DataSuite / Ask / Smart / Other）
-2. 加载对应的业务配置文件
-3. 按照 IDS 规范 + 业务规范生成设计
+1. Copy `_template.md` to `[product-name].md`
+2. Fill in:
+   - Product overview and target users
+   - Mandatory page framework structure
+   - Available business components
+   - Content patterns and domain vocabulary
+3. Save and commit — the configuration is immediately available
 
-## 添加新业务配置
+## Modifying Existing Configurations
 
-1. 复制 `_template.md` 为 `[product-name].md`
-2. 填写产品背景、框架要求、Biz Components 清单
-3. 保存后即可使用
-
-## 修改现有配置
-
-直接编辑对应的 `.md` 文件即可，无需重启 Claude。
+Edit the corresponding `.md` file directly. Changes take effect immediately.

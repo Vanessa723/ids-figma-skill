@@ -42,21 +42,28 @@ curl -s -H "X-Figma-Token: $FIGMA_TOKEN" \
       if (s.style_type==='EFFECT') out.effects[s.name]    = s.key;
     });
     console.log(JSON.stringify(out, null, 2));
-  " > /tmp/ids-tokens-latest.json
+  " > ./ids-tokens-latest.json
 
-echo "✓ Design tokens refreshed"
+echo "✓ Design tokens refreshed → ids-tokens-latest.json"
 ```
 
-**Component Index (Optional but Recommended):**
-For faster component lookup, load the pre-indexed component keys from `./components-index.json`. This file contains all available IDS components and their Figma keys, eliminating the need to search the component library repeatedly.
+> **Note:** Tokens are saved to `./ids-tokens-latest.json` in the skill directory (not `/tmp/`). Reference this file throughout the design session. Do not re-fetch unless explicitly asked by the user or the session is restarted.
 
-**组件索引（可选但推荐）：**
-为了加快组件查找速度，可以加载预索引的组件 keys：`./components-index.json`。该文件包含所有可用的 IDS 组件及其 Figma keys，避免重复搜索组件库。
+### 1.1.2 Load Component Index | 加载组件索引
 
-To refresh the component index, run:
+加载预索引的组件 key 文件，避免每次生成时重复调用 Figma API 查找组件。
+
+Read `./components-index.json` at the start of every session. When you need a component:
+1. **Search the index first** — look up the component name to get its key directly
+2. **Use the key** to insert the component via MCP without additional API lookups
+3. **If not found in index** — fall back to searching via Figma API, then add a note that the index may need refreshing
+
 ```bash
+# Refresh component index if it's outdated (run manually as needed)
 ./fetch-components.sh
 ```
+
+> **Note:** `components-index.json` only contains public components. Underscore-prefixed internal components are excluded, except for approved exceptions listed in each product's business config.
 
 ### 1.2 Confirm Business Context & Generation Mode | 确认业务归属与生成模式
 生成前必须先问用户，并根据业务类型自动选择生成模式：
@@ -131,10 +138,14 @@ All new Figma files **must** be created under the **SHOPEE SINGAPORE PRIVATE LIM
 - If a component does not exist in IDS: compose from existing IDS primitives first. Only hand-draw as a last resort, and annotate it as "Custom — not in IDS"
 
 **Creative Mode (New Products) | 创意模式（新业务）：**
-- **Prefer IDS components** but can freely adapt and combine them
-- Can hand-draw new components when needed for innovation
-- All custom components must be annotated as "Custom — requires development" in layer name
-- Document custom components in the Annotation frame with design rationale
+- **Base UI components (Button, Input, Select, Table, etc.) must still use IDS** — no hand-drawing basics
+- **Innovation allowed for:** Layout combinations, business components, composite components, page-level patterns
+- Can hand-draw new business-specific components when needed
+- All custom components must be annotated as "Custom — requires development [Simple/Medium/Complex]" in layer name
+- Document custom components in the Annotation frame with:
+  - Design rationale (why this component is needed)
+  - Expected development cost estimate
+  - Similar IDS components considered but not suitable
 
 ### 2.3 Design Token Coverage — No Hardcoded Values | Token 全覆盖 — 禁止硬编码
 每个视觉属性都必须引用 token，禁止出现裸值。因为使用了 token，切换到暗色模式只需一键切换变量模式。

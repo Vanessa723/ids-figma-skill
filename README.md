@@ -30,14 +30,39 @@ This skill enables AI assistants (Claude Code, Cursor, etc.) to generate Figma d
 
 ### Setup
 
-1. Configure Figma MCP in your AI assistant (e.g., `.claude/settings/mcp.json` for Claude Code)
+**Step 1: Install Figma MCP Server**
 
-2. Set your Figma token:
+For Claude Code, add to `.claude/settings/mcp.json`:
+```json
+{
+  "mcpServers": {
+    "figma": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-figma"],
+      "env": {
+        "FIGMA_PERSONAL_ACCESS_TOKEN": "your_figma_token_here"
+      }
+    }
+  }
+}
+```
+
+For Cursor, refer to Cursor's MCP configuration documentation.
+
+**Step 2: Get Figma Personal Access Token**
+
+1. Go to Figma → Settings → Personal Access Tokens
+2. Generate a new token with read/write permissions
+3. Replace `your_figma_token_here` in the config above
+
+**Step 3: Set Environment Variable (for scripts)**
+
 ```bash
 export FIGMA_TOKEN="your_token_here"
 ```
 
-3. Load this skill and invoke:
+**Step 4: Load this skill and invoke**
+
 ```
 Generate a Figma design for [your description]
 ```

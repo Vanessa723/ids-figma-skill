@@ -43,6 +43,8 @@ All Space pages must use this exact layout structure:
 
 ## Available Space Biz Components
 
+**Note:** Some Space business components have underscore prefixes but are approved for use within Space designs. These are exceptions to the general rule in section 2.2 of the main spec.
+
 ### Navigation
 - `Topbar` — variants: `Brand=Default`, `Brand=Smart`
 - `Sidebar` — Active/Inactive state variants
