@@ -78,31 +78,57 @@ When you need a component:
 > **Note:** `components-index.json` only contains public components. Underscore-prefixed internal components are excluded, except for approved exceptions listed in each product's business config.
 
 ### 1.2 Confirm Business Context & Generation Mode | 确认业务归属与生成模式
-生成前必须先问用户，并根据业务类型自动选择生成模式：
+生成前必须依次询问两个问题，根据答案自动选择生成模式：
 
-Before generating anything, ask the user and automatically select the generation mode based on the product:
+Before generating anything, ask the user **two questions in sequence** and select the generation mode accordingly:
 
+**Question 1 | 问题一：**
 > **"Which product is this interface for: Space, DataSuite, Ask, Smart, or other (new product)?"**
 >
 > **"当前界面是哪个产品的：Space、DataSuite、Ask、Smart，还是其他（新产品）？"**
 
+**Question 2 | 问题二：**
+> **"Are you exploring ideas (concept / early direction), or preparing a handoff-ready design?"**
+>
+> **"这次是探索阶段（概念验证 / 方向对齐），还是需要一份可以直接交付开发的稿子？"**
+
+---
+
 **Generation Mode Selection | 生成模式选择：**
 
-- **Established products (Space, DataSuite, Ask, Smart)** → **Standard Mode | 标准模式**
-  - Strictly follow IDS component library
-  - Must use designated business components (Topbar, Sidebar, PageHeader)
-  - Ensures consistency and implementability
-  - Load business config: `./business-configs/[product-name].md`
+- **Any product + Exploring direction** → **Explore Mode | 探索模式**
+  - Fast, concept-first generation — constraints are minimal
+  - IDS tokens (colors, typography) are still applied — but component variants don't need to be exact
+  - Auto Layout is recommended but not required for every frame
+  - Only Default state is needed — skip Loading / Error / Empty states
+  - No Annotation frame required
+  - Realistic copy still required; no Lorem Ipsum
+  - Layer naming is relaxed (still semantic, but less strict)
+  - Output is labeled "Exploration Draft — not for development handoff"
+  - **AI's creative priority: layout, information architecture, visual rhythm — go bold**
 
-- **New products or "other"** → **Creative Mode | 创意模式**
-  - Can freely combine and adapt components
-  - Can hand-draw new components (must annotate as "Custom — requires development")
+- **Established products (Space, DataSuite, Ask, Smart) + Delivering** → **Standard Mode | 标准模式**
+  - Load and internalize the business config: `./business-configs/[product-name].md`
+  - The config contains two layers — **read both before generating**:
+    1. **Design Language** — the underlying principles that define how Space looks and behaves. Apply these principles whether or not a Biz Component exists for the scenario.
+    2. **Biz Components** — pre-built implementations of those principles. Use them when they fit. Compose from IDS primitives using the design language when they don't.
+  - When a Biz Component covers the scenario: use it (correct variant, per the dimension tables)
+  - When no Biz Component exists for a scenario: compose from IDS primitives — but the result must be consistent with the design language principles
+  - Goal: a design that feels native to the product, not one that is constrained by the component library
+
+- **New products or "other" + Delivering** → **Creative Mode | 创意模式**
+  - IDS base components are the default choice — use them when they fit
+  - Freedom to create custom components for novel layouts or interactions
+  - All custom components must be annotated (see section 2.2 for details)
   - Still must follow token standards (colors, typography, spacing)
   - Proceed with General IDS Mode (Chapter 2 only)
 
+---
+
 **告知用户 | Inform the user:**
-After the user answers, explicitly state which mode will be used:
-- Standard Mode: "I'll generate using Standard Mode with [Product] business components."
+After the user answers both questions, explicitly state which mode will be used:
+- Explore Mode: "I'll generate an Exploration Draft. Constraints are relaxed — this is for direction-finding, not development handoff."
+- Standard Mode: "I'll generate using Standard Mode, applying [Product] design language and components."
 - Creative Mode: "I'll generate using Creative Mode. Custom components will be annotated for future development."
 
 ### 1.3 Confirm File Location | 确认文件创建位置
@@ -150,14 +176,14 @@ All new Figma files **must** be created under the **SHOPEE SINGAPORE PRIVATE LIM
 - If a component does not exist in IDS: compose from existing IDS primitives first. Only hand-draw as a last resort, and annotate it as "Custom — not in IDS"
 
 **Creative Mode (New Products) | 创意模式（新业务）：**
-- **Base UI components (Button, Input, Select, Table, etc.) must still use IDS** — no hand-drawing basics
-- **Innovation allowed for:** Layout combinations, business components, composite components, page-level patterns
-- Can hand-draw new business-specific components when needed
+- **IDS base components are your default starting point** — prefer them over hand-drawn alternatives for standard patterns (Button, Input, Select, Table, etc.)
+- **When IDS fits, use it.** No justification needed.
+- **When IDS doesn't fit** (novel interaction, custom layout pattern, or no suitable IDS equivalent), create custom components freely — do not force-fit an IDS component that distorts the design intent
+- The creative energy belongs in: **layout, information architecture, visual rhythm, page-level patterns** — not in reinventing standard controls
 - All custom components must be annotated as "Custom — requires development [Simple/Medium/Complex]" in layer name
 - Document custom components in the Annotation frame with:
-  - Design rationale (why this component is needed)
+  - Design rationale (why this component is needed, what IDS alternatives were considered)
   - Expected development cost estimate
-  - Similar IDS components considered but not suitable
 
 ### 2.3 Design Token Coverage — No Hardcoded Values | Token 全覆盖 — 禁止硬编码
 每个视觉属性都必须引用 token，禁止出现裸值。因为使用了 token，切换到暗色模式只需一键切换变量模式。
@@ -272,12 +298,12 @@ When the user specifies a product (Space, DataSuite, Ask, Smart, etc.), load the
 
 **File location:** `./business-configs/[product-name].md`
 
-Each business config file defines:
-- Product background and domain vocabulary
-- Mandatory page framework structure (Topbar, Sidebar, PageHeader requirements)
-- Business-specific components (Biz Components) available for that product
-- Content patterns and layout conventions
-- Shared vs. product-exclusive component rules
+Each business config file is structured in four layers — AI must read all layers before generating:
+
+1. **Design Language** — The underlying principles that define how this product looks, behaves, and communicates. This is the most important layer. Apply these principles whether or not a matching Biz Component exists.
+2. **Page Archetypes** — Canonical page types with ASCII layout diagrams. Use these as blueprints for layout decisions.
+3. **Biz Components** — Pre-built Figma components that implement the design language. Use when they fit the scenario; compose from IDS primitives (following the design language) when they don't.
+4. **Content Patterns** — Product-specific vocabulary, data patterns, and copy conventions.
 
 **If the config file doesn't exist:** Proceed with General IDS Mode (Chapter 2 only) and inform the user they can create a business config file later.
 
@@ -289,12 +315,12 @@ Each business config file defines:
 
 Run this before considering the design complete:
 
-Run this before considering the design complete:
-
 ```
 ━━ Components ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-[ ] All base UI from IDS UI Kit (no hand-drawn basics)
-[ ] Business-specific: Framework components (Topbar/Sidebar/PageHeader) use designated Biz Components
+[ ] Standard Mode: All base UI from IDS UI Kit (no hand-drawn basics)
+[ ] Creative Mode: IDS components used where they fit; custom components annotated with rationale
+[ ] Standard Mode: Design language applied (navigation shell, page identity, data patterns consistent with product config)
+[ ] Standard Mode: Biz Components used where available; IDS primitives composed per design language where not
 [ ] No component detached unless absolutely necessary
 
 ━━ Token Coverage ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
