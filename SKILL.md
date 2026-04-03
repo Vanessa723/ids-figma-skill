@@ -1,5 +1,5 @@
 ---
-name: ids-figma-skill
+name: figma-mcp-skill
 description: Generates and edits Figma UI using IDS (Infra Design System) tokens, components, and business configs via Figma MCP. Use when the user mentions IDS, Infra Design System, SHOPEE design org, component-index, Space/DataSuite/Ask/Smart products, or asks to create or update Figma files to team standards.
 ---
 
@@ -45,7 +45,7 @@ description: Generates and edits Figma UI using IDS (Infra Design System) tokens
 本目录为 Git 克隆时，可在终端执行：
 
 ```bash
-git -C ~/.cursor/skills/ids-figma-skill pull
+git -C ~/.cursor/skills/figma-mcp-skill pull
 ```
 
-上游仓库：<https://github.com/Vanessa723/ids-figma-skill>
+上游仓库：<https://github.com/Vanessa723/figma-mcp-skill>
